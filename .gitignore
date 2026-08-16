@@ -1,0 +1,33 @@
+__pycache__
+
+.env
+env/*
+!env/requirements.txt
+
+# буде видалене
+document_errors/
+
+# директорії на сервері
+.logs/
+# stats/
+# private/
+
+.ide/
+# __res/
+__logs/*.txt
+# __dump/arch/
+# __logs_server/
+
+# на сервері та локально - різні
+# html/favicon.ico
+
+*.srv.*
+*.old.*
+*.log
+*.pem
+*.key
+*.pdf
+*.tgz
+*.zip
+# *.doc
+# *.docx

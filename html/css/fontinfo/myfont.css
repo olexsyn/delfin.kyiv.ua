@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'WebHostingHub-Glyphs';
+    src: url('/css/glyphs/webhostinghub-glyphs.eot');
+    src: url('/css/glyphs/webhostinghub-glyphs.eot?#iefix') format('embedded-opentype'),
+         url('/css/glyphs/webhostinghub-glyphs.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    -moz-font-feature-settings: "calt=0,liga=0";
+}
+[class^="icon-"], [class*=" icon-"] {font-family:'WebHostingHub-Glyphs';background:none;width:auto;height:auto;font-style:normal}
+
+.icon-tw:before{content:'\f16a'}
+.icon-fb:before{content:'\f140'}
+.icon-vk:before{content:'\f34e'}
+.icon-appointment-agenda:before{content:'\f26c'}
+.icon-search:before{content:'\f0c5'}
+.icon-skypeaway:before{content:'\f39f'}
+.icon-skypeoffline:before{content:'\f3a1'}
+.icon-skypeonline:before{content:'\f39e'}
+.icon-stopwatch:before{content:'\f219'}
+.icon-user:before{content:'\f133'}
+.icon-youtube:before{content:'\f142'}
+.icon-addfriend:before{content:'\f3da'}
+.icon-at:before{content:'\40'}
+.icon-baloon:before{content:'\f405'}
+.icon-bell:before{content:'\2407'}
+.icon-binoculars-searchalt:before{content:'\f2a0'}
+.icon-bug:before{content:'\f0a7'}
+.icon-calendar:before{content:'\f20f'}
+.icon-notesdate:before{content:'\f5c8'}
+.icon-cctv:before{content:'\f612'}
+.icon-chat:before{content:'\f162'}
+.icon-check:before{content:'\f310'}
+.icon-edit:before{content:'\f47c'}
+.icon-circlegoogleplus:before{content:'\f78b'}
+.icon-info-sign:before{content:'\f315'}
+.icon-paperclip:before{content:'\f284'}
+.icon-circlecallmissed:before{content:'\f7d2'}
+.icon-circlefacebook:before{content:'\f78d'}
+.icon-circletwitter:before{content:'\f78c'}
+.icon-city:before{content:'\f576'}
+.icon-createfile:before{content:'\f0c6'}
+.icon-creativecommons:before{content:'\f1fc'}
+.icon-cssthree:before{content:'\f06a'}
+.icon-document:before{content:'\f0c2'}
+.icon-dotlist:before{content:'\f4c2'}
+.icon-download-alt:before{content:'\f11a'}
+.icon-edit:before{content:'\f47c'}
+.icon-editalt:before{content:'\f0f2'}
+.icon-envelope:before{content:'\f028'}
+.icon-erroralt:before{content:'\f05a'}
+.icon-explorerwindow:before{content:'\f0d9'}
+.icon-eye-close:before{content:'\f481'}
+.icon-eye-open:before{content:'\f2b5'}
+.icon-findfriends:before{content:'\f54d'}
+.icon-folderalt:before{content:'\f73a'}
+.icon-glasses:before{content:'\f295'}
+.icon-home:before{content:'\21b8'}
+.icon-htmlfive:before{content:'\f069'}
+.icon-jquery:before{content:'\f06b'}
+.icon-leaf:before{content:'\f039'}
+.icon-legacyfilemanager:before{content:'\f095'}
+.icon-list-alt:before{content:'\f480'}
+.icon-lock:before{content:'\f0be'}
+.icon-medal:before{content:'\f2e5'}
+.icon-medalbronze:before{content:'\f2e8'}
+.icon-medalgold:before{content:'\f2e6'}
+.icon-medalsilver:before{content:'\f2e7'}
+.icon-microscope:before{content:'\f283'}
+.icon-missedcallalt:before{content:'\f750'}
+.icon-mushroom:before{content:'\f35e'}
+.icon-mysql-dolphin:before{content:'\f076'}
+.icon-numberlist:before{content:'\f4c3'}
+.icon-ok-circle:before{content:'\f471'}
+.icon-ok-sign:before{content:'\f479'}
+.icon-ok:before{content:'\2713'}
+.icon-openfolderalt:before{content:'\f73e'}
+.icon-perl-camel:before{content:'\f0b6'}
+.icon-podium-winner:before{content:'\f2d6'}
+.icon-portrait:before{content:'\f580'}
+.icon-remove-circle:before{content:'\f470'}
+.icon-skypeoffline:before{content:'\f3a1'}
+.icon-skypeonline:before{content:'\f39e'}
+.icon-spreadsheet:before{content:'\f0c3'}
+.icon-tags:before{content:'\f482'}
+.icon-time:before{content:'\f210'}
+.icon-unlock:before{content:'\f0bf'}
+.icon-upload:before{content:'\f47a'}
+.icon-uploadalt:before{content:'\f11b'}
+
+/*
+.icon-chevron-left:before{content:'\f489'}
+.icon-chevron-right:before{content:'\f488'}
+.icon-twitter:before{content:'\f16a'}
+.icon-vk:before{content:'\f34e'}
+.icon-facebook:before{content:'\f140'}
+*/

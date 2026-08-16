@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="uk">
+	<head>
+		<!--#set var="PAGE_ID" value="join"-->
+		<!--#include virtual="/_parts/head.htm"-->
+		<title>Заявка на пробний урок КДЮСШ «Дельфін»</title>
+		<meta name="description" content="">
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="icon" sizes="16x16 32x32" href="/favicon.ico">
+		<!--#set var="TX_CHILD" value="Прізвище, ім'я"-->
+		<!--#set var="SE_YEAR" value="Рік народження"-->
+	</head>
+
+	<body>
+		<!--#include virtual="/_parts/nav_top.htm"-->
+
+		<div class="container">
+
+			<div class="page-header">
+				<h1>Заявка на пробний урок</h1>
+			</div>
+
+			<p class="clear"></p>
+			<p class="h5">Зірочкою позначені <span class="label label-red">*</span> <b>обов'язкові для заповнення поля</b></p><br />
+
+			<form action="request.py" method="POST" class="form-horizontal" onsubmit="return validateFormOnSubmit(this)">
+				<fieldset>
+					<p class="h4">Дані про дитину</p>
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="tx_child"><span class="label label-red">*</span> <!--#echo var='TX_CHILD' -->:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control input" id="id_child" name="tx_child" value="" placeholder="Прізвище Ім'я" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="ra_gender"><span class="label label-red">*</span> Стать:</label>
+						<div class="col-sm-3">
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_gender" value="W">
+									дівчинка
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_gender" value="M">
+									хлопчик
+								</label>
+							</div>
+
+						</div>
+						<label class="col-sm-4 control-label" for="se_year"><span class="label label-red">*</span> <!--#echo var='SE_YEAR' -->:</label>
+						<div class="col-sm-3">
+							<select class="form-control input" name="se_year">
+								<option value="0">вибрати</option>
+								<option value="elder">старше</option>
+								<option value="2010">2010</option>
+								<option value="2011">2011</option>
+								<option value="2012">2012</option>
+								<option value="2013">2013</option>
+								<option value="2014">2014</option>
+								<option value="2015">2015</option>
+								<option value="2016">2016</option>
+								<option value="2017">2017</option>
+								<option value="2018">2018</option>
+								<option value="little">молодше</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="ra_swim">Навички плавання:</label>
+						<div class="col-sm-10">
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_swim" value="rank">
+									має спортивний розряд
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_swim" value="good">
+									впевнено тримається на воді
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_swim" value="soso">
+									може проплисти декілька метрів
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_swim" value="dnot" >
+									не вміє плавати
+								</label>
+							</div>
+						</div>
+					</div>
+
+
+					<hr />
+					<p class="h4">Зручний час для відвідування тренувань</p>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="inp_lname">&nbsp;</label>
+						<div class="col-sm-10">
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_time" value="15">
+									15:00 &ndash; 15:45
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="ra_time" value="18">
+									18:00 &ndash; 18:45
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<hr />
+					<p class="h4">Дані про батьків</p>
+					<p class="text-muted">Після надсилання форми чекайте на дзвінок або email-повідомлення з описом наступних дій</p>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label">Контакт 1:</label>
+						<div class="col-sm-3">
+							<select class="form-control input" name="se_par1who">
+								<option value="mama" selected>мама</option>
+								<option value="tato">тато</option>
+								<option value="baba">бабуся</option>
+								<option value="dida">дідусь</option>
+								<option value="brat">брат</option>
+								<option value="sest">сестра</option>
+								<option value="other">хтось інший</option>
+							</select>
+						</div>
+						<div class="col-sm-10">
+							<input type="text" class="form-control input" name="tx_par1name" value="" placeholder="Ім'я, по батькові" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="tx_par1mail"><span class="label label-red">*</span> E-mail:</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input" name="tx_par1mail" value="" placeholder="my1@mail.com" />
+						</div>
+						<label class="col-sm-3 control-label" for="tx_par1pho">Телефон(и):</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control input" name="tx_par1pho" value="" placeholder="(012) 333 4444" />
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label class="col-sm-5 control-label">Контакт 2:</label>
+						<div class="col-sm-3">
+							<select class="form-control input" name="se_par2who">
+								<option value="mama">мама</option>
+								<option value="tato" selected>тато</option>
+								<option value="baba">бабуся</option>
+								<option value="dida">дідусь</option>
+								<option value="brat">брат</option>
+								<option value="sest">сестра</option>
+								<option value="other">хтось інший</option>
+							</select>
+						</div>
+						<div class="col-sm-10">
+							<input type="text" class="form-control input" name="tx_par2name" value="" placeholder="Ім'я, по батькові" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="tx_par2mail">E-mail:</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input" name="tx_par2mail" value="" placeholder="my2@mail.com" />
+						</div>
+						<label class="col-sm-3 control-label" for="tx_par2pho">Телефон(и):</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control input" name="tx_par2pho" value="" placeholder="(056) 777 8888" />
+						</div>
+					</div>
+
+					<hr />
+
+					<p class="h4">Додаткова інформація</p>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="ta_desc"><small>(не обов'язково)</small>:</label>
+						<div class="col-sm-13">
+							<textarea class="form-control" rows="3" name="ta_desc"></textarea>
+						</div>
+					</div>
+
+					<hr />
+
+
+					<div class="form-group">
+					<div class="form-group">
+						<div class="col-sm-5 r"><span class="label label-red">*</span></div>
+						<div class="col-sm-8">
+							<select class="form-control input" name="se_bot">
+								<option value="0">Вкажіть, що Ви не бот</option>
+								<option value="1">Я не зайчик</option>
+								<option value="2">Я не песик</option>
+								<option value="3">Я не лисичка</option>
+								<option value="4">Я не рибка</option>
+								<option value="5">Я не котик</option>
+								<option value="6">Я не ведмедик</option>
+								<option value="7">Я не ботик</option>
+								<option value="8">Я не слоник</option>
+								<option value="9">Я не коник</option>
+							</select>
+						</div>
+						<div class="col-sm-5">
+							<button type="submit" class="btn btn-success">Відправити заявку</button>
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+
+		</div> <!-- /container -->
+
+		<!--#include virtual="/_parts/footer.htm"-->
+
+		<!--#include virtual="/_parts/js_loader.htm"-->
+
+		<script>
+
+			const color_ok    = "#fff";
+			const color_error = "#ffdede";
+
+			function validateFormOnSubmit(theForm)
+			{
+				reason = "";
+				add_mess = "";
+
+				function addIfNew()
+				{
+					if (add_mess)
+					{
+						if (reason.indexOf(add_mess) == -1)
+						{
+							reason += add_mess;
+							add_mess = "";
+						}
+					}
+				}
+
+				//reason += validateUsername(theForm.username);
+				//reason += validatePassword(theForm.pwd);
+				//reason += validatePhone(theForm.phone);
+				add_mess = validateEmpty      (theForm.tx_child, "<!--#echo var='TX_CHILD' -->"); addIfNew()
+				add_mess = validateEmptySelect(theForm.se_year,  "<!--#echo var='SE_YEAR' -->");  addIfNew()
+				add_mess = validateEmptyFields(theForm.tx_par1mail, theForm.tx_par2mail);         addIfNew()
+				add_mess = validateEmail      (theForm.tx_par1mail);                              addIfNew()
+				add_mess = validateEmail      (theForm.tx_par2mail);                              addIfNew()
+
+				if (reason != "")
+				{
+					// Please check and correct some fields
+					alert("Будь ласка, перевірте та виправте деякі поля:\n" + reason);
+					return false;
+				}
+
+				return true;
+			}
+
+
+			function validateEmptyFields(fld1, fld2)
+			{
+				error_txt = "";
+
+				if (fld1.value.length == 0 && fld2.value.length == 0)
+				{
+					fld1.style.background = color_error;
+					fld2.style.background = color_error;
+					// The required field has not been filled in
+					error_txt = "Вкажіть хоча б одну адресу електронної пошти;\n"
+				}
+				else
+				{
+					fld1.style.background = color_ok;
+					fld2.style.background = color_ok;
+				}
+
+				return error_txt;
+			}
+
+
+			function validateEmpty(fld, addtxt)
+			{
+				error_txt = "";
+
+				if (fld.value.length == 0)
+				{
+					fld.style.background = color_error;
+					// The required field has not been filled in
+					error_txt = addtxt + " - обов'язкове поле не заповнене;\n"
+				}
+				else
+				{
+					fld.style.background = color_ok;
+				}
+
+				return error_txt;
+			}
+
+
+			function validateEmptySelect(fld, addtxt)
+			{
+				error_txt = "";
+
+				if (fld.value == 0)
+				{
+					fld.style.background = color_error;
+					// The required field has not been filled in
+					error_txt = addtxt + " - обов'язкове поле не заповнене;\n"
+				}
+				else
+				{
+					fld.style.background = color_ok;
+				}
+
+				return error_txt;
+			}
+
+
+			function trim(s)
+			{
+				return s.replace(/^\s+|\s+$/, '');
+			}
+
+
+			function validateEmail(fld)
+			{
+				error_txt = "";
+				// value of field with whitespace trimmed off.
+				tfld = trim(fld.value);
+				emailFilter = /^[^@]+@[^@.]+\.[^@]*\w\w$/ ;
+				illegalChars= /[\(\)\<\>\,\;\:\\\"\[\]]/ ;
+
+				if (fld.value != "")
+				{
+					if (!emailFilter.test(tfld))
+					{
+						//test email for illegal characters
+						fld.style.background = color_error;
+						// Please enter a valid email address.
+						error_txt = fld + " - вкажіть правильну адресу електронної пошти;\n";
+					}
+					else if (fld.value.match(illegalChars))
+					{
+						fld.style.background = color_error;
+						// The email address contains illegal characters.
+						error_txt = fld + " - адреса електронної пошти містить неприпустимі символи;\n";
+					}
+					else
+					{
+						fld.style.background = color_ok;
+					}
+				}
+				return error_txt;
+			}
+		</script>
+
+	</body>
+</html>
