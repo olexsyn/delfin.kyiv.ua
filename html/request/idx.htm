@@ -20,42 +20,36 @@
 				<h1>Заявка на пробний урок</h1>
 			</div>
 
-			<p class="clear"></p>
-			<p class="h5">Зірочкою позначені <span class="label label-red">*</span> <b>обов'язкові для заповнення поля</b></p><br />
+			<p class="fs-5">Зірочкою позначені <span class="text-danger">*</span> <b>обов'язкові для заповнення поля</b></p>
 
-			<form action="request.py" method="POST" class="form-horizontal" onsubmit="return validateFormOnSubmit(this)">
+			<form action="request.py" method="POST" class="row g-3" onsubmit="return validateFormOnSubmit(this)">
 				<fieldset>
 					<p class="h4">Дані про дитину</p>
-					<div class="form-group">
-						<label class="col-sm-5 control-label" for="tx_child"><span class="label label-red">*</span> <!--#echo var='TX_CHILD' -->:</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control input" id="id_child" name="tx_child" value="" placeholder="Прізвище Ім'я" />
+
+					<div class="row g-3 align-items-center">
+						<label class="col-sm-3 col-form-label" for="id_child"><span class="text-danger">*</span> <!--#echo var='TX_CHILD' -->:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="id_child" name="tx_child" value="" placeholder="Прізвище Ім'я" />
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="col-sm-5 control-label" for="ra_gender"><span class="label label-red">*</span> Стать:</label>
-						<div class="col-sm-3">
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_gender" value="W">
-									дівчинка
-								</label>
+					<div class="row g-3 align-items-center pt-2">
+						<label class="col-sm-3 col-form-label"><span class="text-danger">*</span> Стать:</label>
+						<div class="col-sm-4">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_gender" value="W" id="ra_gender_w">
+								<label class="form-check-label" for="ra_gender_w">дівчинка</label>
 							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_gender" value="M">
-									хлопчик
-								</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_gender" value="M" id="ra_gender_m">
+								<label class="form-check-label" for="ra_gender_m">хлопчик</label>
 							</div>
-
 						</div>
-						<label class="col-sm-4 control-label" for="se_year"><span class="label label-red">*</span> <!--#echo var='SE_YEAR' -->:</label>
+						<label class="col-sm-2 col-form-label"><span class="text-danger">*</span> <!--#echo var='SE_YEAR' -->:</label>
 						<div class="col-sm-3">
-							<select class="form-control input" name="se_year">
+							<select class="form-select" name="se_year">
 								<option value="0">вибрати</option>
-								<option value="elder">старше</option>
-								<option value="2010">2010</option>
+								<option value="older">старше</option>
 								<option value="2011">2011</option>
 								<option value="2012">2012</option>
 								<option value="2013">2013</option>
@@ -64,59 +58,47 @@
 								<option value="2016">2016</option>
 								<option value="2017">2017</option>
 								<option value="2018">2018</option>
-								<option value="little">молодше</option>
+								<option value="2019">2019</option>
+								<option value="younger">молодше</option>
 							</select>
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="col-sm-5 control-label" for="ra_swim">Навички плавання:</label>
-						<div class="col-sm-10">
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_swim" value="rank">
-									має спортивний розряд
-								</label>
+					<div class="row g-3 pt-2">
+						<label class="col-sm-3 col-form-label">Навички плавання:</label>
+						<div class="col-sm-9">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_swim" value="rank" id="ra_swim_rank">
+								<label class="form-check-label" for="ra_swim_rank">має спортивний розряд</label>
 							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_swim" value="good">
-									впевнено тримається на воді
-								</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_swim" value="good" id="ra_swim_good">
+								<label class="form-check-label" for="ra_swim_good">впевнено тримається на воді</label>
 							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_swim" value="soso">
-									може проплисти декілька метрів
-								</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_swim" value="soso" id="ra_swim_soso">
+								<label class="form-check-label" for="ra_swim_soso">може проплисти декілька метрів</label>
 							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_swim" value="dnot" >
-									не вміє плавати
-								</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_swim" value="dnot" id="ra_swim_dnot">
+								<label class="form-check-label" for="ra_swim_dnot">не вміє плавати</label>
 							</div>
 						</div>
 					</div>
 
-
 					<hr />
 					<p class="h4">Зручний час для відвідування тренувань</p>
 
-					<div class="form-group">
-						<label class="col-sm-5 control-label" for="inp_lname">&nbsp;</label>
-						<div class="col-sm-10">
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_time" value="15">
-									15:00 &ndash; 15:45
-								</label>
+					<div class="row g-3">
+						<label class="col-sm-3 col-form-label">&nbsp;</label>
+						<div class="col-sm-9">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_time" value="15" id="ra_time_15">
+								<label class="form-check-label" for="ra_time_15">15:00 &ndash; 15:45</label>
 							</div>
-							<div class="radio">
-								<label>
-									<input type="radio" name="ra_time" value="18">
-									18:00 &ndash; 18:45
-								</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="ra_time" value="18" id="ra_time_18">
+								<label class="form-check-label" for="ra_time_18">18:00 &ndash; 18:45</label>
 							</div>
 						</div>
 					</div>
@@ -125,10 +107,10 @@
 					<p class="h4">Дані про батьків</p>
 					<p class="text-muted">Після надсилання форми чекайте на дзвінок або email-повідомлення з описом наступних дій</p>
 
-					<div class="form-group">
-						<label class="col-sm-5 control-label">Контакт 1:</label>
+					<div class="row g-3 align-items-center">
+						<label class="col-sm-3 col-form-label">Контакт 1:</label>
 						<div class="col-sm-3">
-							<select class="form-control input" name="se_par1who">
+							<select class="form-select" name="se_par1who">
 								<option value="mama" selected>мама</option>
 								<option value="tato">тато</option>
 								<option value="baba">бабуся</option>
@@ -138,26 +120,28 @@
 								<option value="other">хтось інший</option>
 							</select>
 						</div>
-						<div class="col-sm-10">
-							<input type="text" class="form-control input" name="tx_par1name" value="" placeholder="Ім'я, по батькові" />
+						<div class="col-sm-6">
+							<input type="text" class="form-control" name="tx_par1name" value="" placeholder="Ім'я, по батькові" />
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="col-sm-5 control-label" for="tx_par1mail"><span class="label label-red">*</span> E-mail:</label>
+					<div class="row g-3 align-items-center pt-2">
+						<label class="col-sm-3 col-form-label" for="tx_par1mail"><span class="text-danger">*</span> E-mail:</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control input" name="tx_par1mail" value="" placeholder="my1@mail.com" />
+							<input type="text" class="form-control" name="tx_par1mail" value="" placeholder="my1@mail.com" />
 						</div>
-						<label class="col-sm-3 control-label" for="tx_par1pho">Телефон(и):</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control input" name="tx_par1pho" value="" placeholder="(012) 333 4444" />
+						<label class="col-sm-2 col-form-label" for="tx_par1pho">Телефон(и):</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="tx_par1pho" value="" placeholder="(012) 333 4444" />
 						</div>
 					</div>
-					<br />
-					<div class="form-group">
-						<label class="col-sm-5 control-label">Контакт 2:</label>
+
+					<hr class="my-4" />
+
+					<div class="row g-3 align-items-center">
+						<label class="col-sm-3 col-form-label">Контакт 2:</label>
 						<div class="col-sm-3">
-							<select class="form-control input" name="se_par2who">
+							<select class="form-select" name="se_par2who">
 								<option value="mama">мама</option>
 								<option value="tato" selected>тато</option>
 								<option value="baba">бабуся</option>
@@ -167,41 +151,39 @@
 								<option value="other">хтось інший</option>
 							</select>
 						</div>
-						<div class="col-sm-10">
-							<input type="text" class="form-control input" name="tx_par2name" value="" placeholder="Ім'я, по батькові" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-5 control-label" for="tx_par2mail">E-mail:</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control input" name="tx_par2mail" value="" placeholder="my2@mail.com" />
-						</div>
-						<label class="col-sm-3 control-label" for="tx_par2pho">Телефон(и):</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control input" name="tx_par2pho" value="" placeholder="(056) 777 8888" />
+							<input type="text" class="form-control" name="tx_par2name" value="" placeholder="Ім'я, по батькові" />
 						</div>
 					</div>
 
-					<hr />
+					<div class="row g-3 align-items-center pt-2">
+						<label class="col-sm-3 col-form-label" for="tx_par2mail">E-mail:</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" name="tx_par2mail" value="" placeholder="my2@mail.com" />
+						</div>
+						<label class="col-sm-2 col-form-label" for="tx_par2pho">Телефон(и):</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="tx_par2pho" value="" placeholder="(056) 777 8888" />
+						</div>
+					</div>
+
+					<hr class="my-4" />
 
 					<p class="h4">Додаткова інформація</p>
 
-					<div class="form-group">
-						<label class="col-sm-5 control-label" for="ta_desc"><small>(не обов'язково)</small>:</label>
-						<div class="col-sm-13">
+					<div class="row g-3">
+						<label class="col-sm-3 col-form-label" for="ta_desc"><small>(не обов'язково)</small>:</label>
+						<div class="col-sm-9">
 							<textarea class="form-control" rows="3" name="ta_desc"></textarea>
 						</div>
 					</div>
 
-					<hr />
+					<hr class="my-4" />
 
-
-					<div class="form-group">
-					<div class="form-group">
-						<div class="col-sm-5 r"><span class="label label-red">*</span></div>
-						<div class="col-sm-8">
-							<select class="form-control input" name="se_bot">
+					<div class="row g-3 align-items-center">
+						<div class="col-sm-1 text-end"><span class="text-danger">*</span></div>
+						<div class="col-sm-7">
+							<select class="form-select" name="se_bot">
 								<option value="0">Вкажіть, що Ви не бот</option>
 								<option value="1">Я не зайчик</option>
 								<option value="2">Я не песик</option>
@@ -214,7 +196,7 @@
 								<option value="9">Я не коник</option>
 							</select>
 						</div>
-						<div class="col-sm-5">
+						<div class="col-sm-4">
 							<button type="submit" class="btn btn-success">Відправити заявку</button>
 						</div>
 					</div>
@@ -250,9 +232,6 @@
 					}
 				}
 
-				//reason += validateUsername(theForm.username);
-				//reason += validatePassword(theForm.pwd);
-				//reason += validatePhone(theForm.phone);
 				add_mess = validateEmpty      (theForm.tx_child, "<!--#echo var='TX_CHILD' -->"); addIfNew()
 				add_mess = validateEmptySelect(theForm.se_year,  "<!--#echo var='SE_YEAR' -->");  addIfNew()
 				add_mess = validateEmptyFields(theForm.tx_par1mail, theForm.tx_par2mail);         addIfNew()
@@ -261,7 +240,6 @@
 
 				if (reason != "")
 				{
-					// Please check and correct some fields
 					alert("Будь ласка, перевірте та виправте деякі поля:\n" + reason);
 					return false;
 				}
@@ -278,7 +256,6 @@
 				{
 					fld1.style.background = color_error;
 					fld2.style.background = color_error;
-					// The required field has not been filled in
 					error_txt = "Вкажіть хоча б одну адресу електронної пошти;\n"
 				}
 				else
@@ -298,7 +275,6 @@
 				if (fld.value.length == 0)
 				{
 					fld.style.background = color_error;
-					// The required field has not been filled in
 					error_txt = addtxt + " - обов'язкове поле не заповнене;\n"
 				}
 				else
@@ -317,7 +293,6 @@
 				if (fld.value == 0)
 				{
 					fld.style.background = color_error;
-					// The required field has not been filled in
 					error_txt = addtxt + " - обов'язкове поле не заповнене;\n"
 				}
 				else
@@ -338,7 +313,6 @@
 			function validateEmail(fld)
 			{
 				error_txt = "";
-				// value of field with whitespace trimmed off.
 				tfld = trim(fld.value);
 				emailFilter = /^[^@]+@[^@.]+\.[^@]*\w\w$/ ;
 				illegalChars= /[\(\)\<\>\,\;\:\\\"\[\]]/ ;
@@ -347,15 +321,12 @@
 				{
 					if (!emailFilter.test(tfld))
 					{
-						//test email for illegal characters
 						fld.style.background = color_error;
-						// Please enter a valid email address.
 						error_txt = fld + " - вкажіть правильну адресу електронної пошти;\n";
 					}
 					else if (fld.value.match(illegalChars))
 					{
 						fld.style.background = color_error;
-						// The email address contains illegal characters.
 						error_txt = fld + " - адреса електронної пошти містить неприпустимі символи;\n";
 					}
 					else

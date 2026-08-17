@@ -1,0 +1,150 @@
+/* Кастомні стилі школи плавання «Дельфін» під Bootstrap 5.3.
+   Замінює стару збірку bootstrap_swim.css (кастомний білд Bootstrap 3
+   з нестандартною 20-колонковою сіткою) — тепер усе на штатній
+   12-колонковій сітці й утилітах BS5. */
+
+@media (min-width: 1200px) {
+    .container {
+      width: 910px;
+      margin-right: auto;
+      margin-left: auto;
+      padding: 10px;
+    }
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  src: url(/css/fonts/OpenSans-Regular.ttf);
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  src: url(/css/fonts/OpenSans-Italic.ttf);
+}
+@font-face {
+  font-family: "Open Sans";
+  font-weight: bold;
+  src: url(/css/fonts/OpenSans-Semibold.ttf);
+}
+
+:root {
+  --dolphin-blue: #1D68BF;
+  --dolphin-blue-dark: #0d66b0;
+  --dolphin-blue-light: #5C9BE9;
+  --dolphin-accent: #34AF38;
+}
+
+body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #0072FF;
+}
+a:hover, a:focus {
+  color: #0072FF;
+}
+
+h1, h2, h3, h4 {
+  color: var(--dolphin-blue-dark);
+}
+
+h1, .h1 {
+  font-size: 2.2rem;
+  padding: 20px 0 15px 0;
+}
+
+img.logo {
+  width: 200px;
+  padding: 10px 0 2px;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px;
+  border-top: 1px solid #999;
+}
+
+/* Bootstrap 3 мав .page-header — у BS5 такого немає, лишаємо власний
+   маленький клас з тим самим візуальним ефектом (заголовок розділу
+   з підкресленням). */
+.page-header {
+  margin: 40px 0 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.navbar-dolphin {
+  background-color: var(--dolphin-blue);
+  --bs-navbar-padding-y: 0;
+}
+.navbar-dolphin .navbar-brand {
+  color: #fff;
+  font-weight: bold;
+}
+.navbar-dolphin .nav-link {
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}
+.navbar-dolphin a.nav-link {
+  margin: 0px 7px;
+}
+.navbar-dolphin .nav-link:hover,
+.navbar-dolphin .nav-link:focus {
+  color: #fff;
+  background-color: #2879D6;
+}
+.navbar-dolphin .nav-link.active {
+  color: #fff;
+  background-color: var(--dolphin-accent);
+}
+.navbar-green {
+  color: #fff;
+  background-color: #34AF38;
+  padding: 5px;
+}
+
+.well {
+  background-color: var(--dolphin-blue);
+  color: #fff;
+  padding: 15px 10px 0 10px;
+}
+.well a {
+  color: #fff;
+}
+
+
+.navbar-dolphin .nav-link .bi {
+        color: #fff;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+.carousel {
+  max-width: 915px;
+  margin: 0 auto;
+}
+.carousel-indicators {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  img.logo {
+    display: none;
+  }
+  .carousel {
+    display: none;
+  }
+  iframe {
+    display: none;
+  }
+}
+
+/* пункти меню в підвалі, підсвічування активного пункту (клас
+   .active виставляється SSI-директивою #if в footer.htm) */
+.footer-nav .nav-link.active {
+  color: #fff;
+  background-color: var(--dolphin-accent);
+}

@@ -22,7 +22,7 @@ __logs/*.txt
 # html/favicon.ico
 
 *.srv.*
-*.old.*
+*.old
 *.log
 *.pem
 *.key

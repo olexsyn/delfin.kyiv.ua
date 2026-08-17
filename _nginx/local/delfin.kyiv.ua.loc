@@ -1,0 +1,97 @@
+# Підключати після того, як сертифікат Let's Encrypt вже видано
+# (див. delfin.kyiv.ua_init.loc для першого запуску).
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name delfin.kyiv.ua.loc www.delfin.kyiv.ua.loc;
+    return 301 https://delfin.kyiv.ua.loc$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name delfin.kyiv.ua.loc;
+
+    root /home/www/delfin.kyiv.ua/html;
+    index idx.htm;
+
+    ssi on;
+    # ssi_types за замовчуванням уже text/html, окремо вказувати не треба.
+    # types{} тут навмисно не використовується: у контексті server/location
+    # він повністю замінює таблицю MIME-типів, а не доповнює
+    # /etc/nginx/mime.types — інакше css/js/картинки почали б віддаватись
+    # як application/octet-stream.
+
+    # _parts/* — включення для SSI, а не самостійні сторінки.
+    # internal, а не deny/404: deny блокує і внутрішні SSI-subrequest-и,
+    # тобто зламав би самі #include virtual="/_parts/..."
+    location ^~ /_parts/ {
+        internal;
+    }
+
+    # заявки з форми /join/ — старий CGI-скрипт request.py.
+    # На Apache це вмикалось через html/request/.htaccess
+    # (AddHandler cgi-script .py + Options +ExecCGI). Nginx сам CGI
+    # не виконує, тому тут — fcgiwrap: `apt install fcgiwrap`,
+    # сокет /run/fcgiwrap.socket піднімається systemd-юнітом fcgiwrap.socket.
+    # Перевірено вручну (nginx + fcgiwrap на тестовому порту): форма
+    # приймає POST, пише _saved.txt і робить redirect на /success/ або
+    # /error/ так само, як раніше на Apache.
+    location ^~ /request/ {
+        location ~ \.py$ {
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_pass unix:/run/fcgiwrap.socket;
+        }
+
+        # _saved.txt — локальна копія заявок (телефони, email).
+        # На Apache теж нічим не була захищена від прямого доступу,
+        # тут це варто закрити:
+        location = /request/_saved.txt {
+            deny all;
+        }
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # статика без SSI-обробки — кешування на стороні клієнта
+    location ~* \.(?:css|js|jpg|jpeg|png|gif|ico|ttf|woff2?)$ {
+        expires 30d;
+        access_log off;
+    }
+
+    # За бажання обмежити частоту запитів (не було в Apache-версії,
+    # тому вимкнено за замовчуванням) — розкоментувати рядок нижче
+    # і додати у http{} у /etc/nginx/nginx.conf:
+    #   limit_req_zone $binary_remote_addr zone=general:10m rate=5r/s;
+    # Без цього рядка в http{} nginx -t впаде з
+    # "zero size shared memory zone general" (перевірено).
+    # limit_req zone=general burst=15 nodelay;
+
+    error_log /var/log/nginx/delfin.kyiv.ua_error.log;
+    access_log /var/log/nginx/delfin.kyiv.ua_access.log;
+
+    # ssl_certificate /etc/letsencrypt/live/delfin.kyiv.ua/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/delfin.kyiv.ua/privkey.pem;
+    ssl_certificate     /etc/ssl/certs/ssl-cert-snakeoil.pem;
+    ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+    # include /etc/letsencrypt/options-ssl-nginx.conf;
+    # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name www.delfin.kyiv.ua.loc;
+    return 301 https://delfin.kyiv.ua.loc$request_uri;
+
+    # ssl_certificate /etc/letsencrypt/live/delfin.kyiv.ua/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/delfin.kyiv.ua/privkey.pem;
+    # include /etc/letsencrypt/options-ssl-nginx.conf;
+    # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    ssl_certificate     /etc/ssl/certs/ssl-cert-snakeoil.pem;
+    ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+}

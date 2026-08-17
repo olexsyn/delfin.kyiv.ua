@@ -1,0 +1,61 @@
+# Тимчасовий конфіг для першого запуску, поки немає сертифіката.
+# Дає certbot --webroot видати сертифікат, а заодно робить сайт
+# доступним по http, поки HTTPS-конфіг ще не підключений.
+#
+# Після видачі сертифіката цей файл прибрати з sites-enabled
+# і залишити тільки delfin_kyiv_ua.com
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name delfin.kyiv.ua www.delfin.kyiv.ua;
+
+    root /home/www/delfin.kyiv.ua/html;
+    index idx.htm;
+
+    ssi on;
+    # ssi_types за замовчуванням уже text/html, окремо вказувати не треба
+
+    # _parts/* — включення для SSI, а не самостійні сторінки.
+    # internal, а не deny/404: deny блокує і внутрішні SSI-subrequest-и,
+    # тобто зламав би самі #include virtual="/_parts/..."
+    location ^~ /_parts/ {
+        internal;
+    }
+
+    # заявки з форми /join/ — старий CGI-скрипт request.py.
+    # На Apache це вмикалось через html/request/.htaccess
+    # (AddHandler cgi-script .py + Options +ExecCGI). Nginx сам CGI
+    # не виконує, тому тут — fcgiwrap: `apt install fcgiwrap`,
+    # сокет /run/fcgiwrap.socket піднімається systemd-юнітом fcgiwrap.socket.
+    location ^~ /request/ {
+        location ~ \.py$ {
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_pass unix:/run/fcgiwrap.socket;
+        }
+
+        # _saved.txt містить телефони й email з форми — на Apache
+        # цей файл теж нічим не був захищений, це варто закрити:
+        location = /request/_saved.txt {
+            deny all;
+        }
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # статика без SSI-обробки — кешування на стороні клієнта
+    location ~* \.(?:css|js|jpg|jpeg|png|gif|ico|ttf|woff2?)$ {
+        expires 30d;
+        access_log off;
+    }
+
+    location ^~ /.well-known/acme-challenge/ {
+        default_type "text/plain";
+    }
+
+    error_log /var/log/nginx/delfin.kyiv.ua_error.log;
+    access_log /var/log/nginx/delfin.kyiv.ua_access.log;
+}

@@ -1,29 +1,25 @@
 <div class="container">
 
-	<footer class="top40px">
-		<div class="row">
-			<hr />
+	<footer class="pt-5">
 
-			<nav>
-			<ul class="nav nav-pills">
-				<li class="<!--#if expr='v("PAGE_ID")=="index"' -->active<!--#endif -->"><a href="/">Головна</a></li>
-				<li class="<!--#if expr='v("PAGE_ID")=="about"' -->active<!--#endif -->"><a href="/about/">Про школу</a></li>
-				<li class="<!--#if expr='v("PAGE_ID")=="coaches"' -->active<!--#endif -->"><a href="/coaches/">Тренерський склад</a></li>
-				<li class="<!--#if expr='v("PAGE_ID")=="join"' -->active<!--#endif -->"><a href="/join/">Записатися до школи</a></li>
-			</ul>
+		<div class="py-3">
+			<nav class="footer-nav">
+				<ul class="nav nav-pills justify-content-center">
+					<li class="nav-item"><a class="nav-link <!--#if expr='$PAGE_ID = index' -->active<!--#endif -->" href="/">Головна</a></li>
+					<li class="nav-item"><a class="nav-link <!--#if expr='$PAGE_ID = about' -->active<!--#endif -->" href="/about/">Про школу</a></li>
+					<li class="nav-item"><a class="nav-link <!--#if expr='$PAGE_ID = coaches' -->active<!--#endif -->" href="/coaches/">Тренерський склад</a></li>
+					<li class="nav-item"><a class="nav-link <!--#if expr='$PAGE_ID = join' -->active<!--#endif -->" href="/join/">Записатися до школи</a></li>
+				</ul>
 			</nav>
-			<hr />
 		</div>
-
 		<div class="well">
-			<div class=" top10px"></div>
-			<div class="row">
+			<div class="row align-items-center">
 				<div class="col-sm-7">
 					<!--#config timefmt="%Y" --><!--#set var="CURRYEAR" value="$DATE_LOCAL"-->
 					<p>Школа плавання «Дельфін», 2016-<!--#echo var='CURRYEAR'--></p>
 				</div>
-				<div class="col-md-13">
-					<p class="text-right"><script>"delfin.kyiv".printAddr('swimming', 'info', '.ua');</script></p>
+				<div class="col-sm-5">
+					<p class="text-end"><script>"delfin.kyiv".printAddr('swimming', 'info', '.ua');</script></p>
 				</div>
 			</div>
 		</div>

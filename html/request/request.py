@@ -11,11 +11,12 @@ ROOT_DIR  = "/home/www/delfin.kyiv.ua"
 # cgitb.enable(display=0, logdir=ROOT_DIR + '/logs', format="text")  # AJAX
 # cgitb.enable(display=1, format="html")  # AJAX , logdir=ROOT_DIR + '/logs'
 
-load_env_file(os.path.join(ROOT_DIR, ".env"))
-
 # ---------------------------
 def load_env_file(filepath=".env"):
-	"""Проста функція для завантаження .env файлу без сторонніх модулів"""
+	"""
+	Проста функція для завантаження .env файлу без сторонніх модулів
+
+	"""
 	if not os.path.exists(filepath):
 		return
 
@@ -31,6 +32,7 @@ def load_env_file(filepath=".env"):
 				key, value = line.split("=", 1)
 				key = key.strip()
 				value = value.strip().strip("'\"") # прибираємо зайві лапки, якщо є
+				# Зберігаємо пароль у змінній середовища
 				os.environ[key] = value
 #def
 
@@ -49,11 +51,18 @@ def now():
 
 
 # ---------------------------
+#def redirect(url):
+#	print("Content-type: text/html\n")
+#	print("<html><head>")
+#	print(f"<meta http-equiv='Refresh' content='0; URL={url}'>")
+#	print("<title></title></head><body></body></html>")
+#	sys.exit(0)
+
+
+# ---------------------------
 def redirect(url):
-	print("Content-type: text/html\n")
-	print("<html><head>")
-	print(f"<meta http-equiv='Refresh' content='0; URL={url}'>")
-	print("<title></title></head><body></body></html>")
+	print(f"Location: {url}")
+	print()  # обов'язковий порожній рядок
 	sys.exit(0)
 #def
 
@@ -105,8 +114,13 @@ def send_email(reply_name, reply_mail, subject, body):
 
 # ============== MAIN ======================
 
+load_env_file(os.path.join(ROOT_DIR, ".env"))
+
 data = '\nвід ' + now() + '\n' + '-' * 20 + '\n\n'
 form = cgi.FieldStorage()
+
+# password = os.getenv('SMTP_PASSWORD')  # value from load_env_file() -> os.environ[key] = value
+# print(f'password = {password}')
 
 if form.getvalue('se_bot') == '7':
 
@@ -115,19 +129,19 @@ if form.getvalue('se_bot') == '7':
 		goto_error()
 
 	year = form.getvalue('se_year')
-	if    year == 'elder':  year = "старше 2010"
-	elif year == 'little': year = "молодше 2018"
+	if   year == 'older':   year = "старше 2011"
+	elif year == 'younger': year = "молодше 2019"
 	elif year == '0':      goto_error()
 
 	if   form.getvalue('ra_gender') == 'M': gender = "хлопчик"
 	elif form.getvalue('ra_gender') == 'W': gender = "дівчинка"
-	else:                                  gender = "стать дитини не вказано"
+	else:                                   gender = "стать дитини не вказано"
 
 	if   form.getvalue('ra_swim') == 'rank': swim = "має спортивний розряд"
 	elif form.getvalue('ra_swim') == 'good': swim = "впевнено тримається на воді"
 	elif form.getvalue('ra_swim') == 'soso': swim = "може проплисти декілька метрів"
 	elif form.getvalue('ra_swim') == 'dnot': swim = "не вміє плавати"
-	else:                                   swim = "як плаває - не вказали"
+	else:                                    swim = "як плаває - не вказали"
 
 	preferred_time = form.getvalue('ra_time')  # best time
 	if preferred_time == None:
@@ -191,7 +205,7 @@ if form.getvalue('se_bot') == '7':
 		if form.getvalue('tx_par2name'): reply_name = form.getvalue('tx_par2name')
 		else:                            reply_name = ""
 
-	send_email(reply_name, reply_mail, subject, data)
+	# send_email(reply_name, reply_mail, subject, data)
 
 	#data = re.sub('\n','<br />',data)
 	redirect("/success/")
