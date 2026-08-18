@@ -38,6 +38,11 @@ body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
+.form-control::placeholder {
+    color: #adb5bd;
+    opacity: 1;
+}
+
 a {
   color: #0072FF;
 }

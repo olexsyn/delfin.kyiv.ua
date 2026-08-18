@@ -59,6 +59,7 @@
 								<option value="2017">2017</option>
 								<option value="2018">2018</option>
 								<option value="2019">2019</option>
+								<option value="2020">2020</option>
 								<option value="younger">молодше</option>
 							</select>
 						</div>
@@ -130,9 +131,9 @@
 						<div class="col-sm-4">
 							<input type="text" class="form-control" name="tx_par1mail" value="" placeholder="my1@mail.com" />
 						</div>
-						<label class="col-sm-2 col-form-label" for="tx_par1pho">Телефон(и):</label>
+						<label class="col-sm-2 col-form-label" for="tx_par1pho"><span class="text-danger">*</span> Телефон(и):</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" name="tx_par1pho" value="" placeholder="(012) 333 4444" />
+							<input type="tel" class="form-control" id="tx_par1pho" name="tx_par1pho" value="" placeholder="+38(0__) ___-__-__" />
 						</div>
 					</div>
 
@@ -163,7 +164,7 @@
 						</div>
 						<label class="col-sm-2 col-form-label" for="tx_par2pho">Телефон(и):</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" name="tx_par2pho" value="" placeholder="(056) 777 8888" />
+							<input type="tel" class="form-control" id="tx_par2pho" name="tx_par2pho" value="" placeholder="+38(0__) ___-__-__" />
 						</div>
 					</div>
 
@@ -210,10 +211,23 @@
 
 		<!--#include virtual="/_parts/js_loader.htm"-->
 
+		<script src="https://cdn.jsdelivr.net/npm/imask@7/dist/imask.min.js"></script>
+
 		<script>
 
 			const color_ok    = "#fff";
 			const color_error = "#ffdede";
+
+			const par1phoInput = document.querySelector('#tx_par1pho');
+			const par2phoInput = document.querySelector('#tx_par2pho');
+
+			const par1phoMask = IMask(par1phoInput, { mask: '+{38}(000) 000-00-00' });
+			const par2phoMask = IMask(par2phoInput, { mask: '+{38}(000) 000-00-00' });
+
+			window.addEventListener('pageshow', () => {
+				par1phoMask.updateValue();
+				par2phoMask.updateValue();
+			});
 
 			function validateFormOnSubmit(theForm)
 			{
@@ -237,6 +251,7 @@
 				add_mess = validateEmptyFields(theForm.tx_par1mail, theForm.tx_par2mail);         addIfNew()
 				add_mess = validateEmail      (theForm.tx_par1mail);                              addIfNew()
 				add_mess = validateEmail      (theForm.tx_par2mail);                              addIfNew()
+				add_mess = validatePhoneFields(theForm.tx_par1pho, theForm.tx_par2pho, par1phoMask, par2phoMask); addIfNew()
 
 				if (reason != "")
 				{
@@ -257,6 +272,26 @@
 					fld1.style.background = color_error;
 					fld2.style.background = color_error;
 					error_txt = "Вкажіть хоча б одну адресу електронної пошти;\n"
+				}
+				else
+				{
+					fld1.style.background = color_ok;
+					fld2.style.background = color_ok;
+				}
+
+				return error_txt;
+			}
+
+
+			function validatePhoneFields(fld1, fld2, mask1, mask2)
+			{
+				error_txt = "";
+
+				if (!mask1.masked.isComplete && !mask2.masked.isComplete)
+				{
+					fld1.style.background = color_error;
+					fld2.style.background = color_error;
+					error_txt = "Вкажіть хоча б один номер телефону повністю;\n"
 				}
 				else
 				{
