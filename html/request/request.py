@@ -6,7 +6,7 @@ import time
 import os
 
 ROOT_DIR   = "/home/www/delfin.kyiv.ua"
-SEND_EMAIL = 0
+SEND_EMAIL = 1
 
 SMTPSERV = 'mail.delfin.kyiv.ua'
 TOADDR   = 'info@delfin.kyiv.ua'
@@ -137,11 +137,11 @@ def send_email(reply_name, reply_mail, subject, body):
         else:
             msg['Reply-to'] = f"{reply_mail}"
 
-    smtpObj = smtplib.SMTP(SMTPSERV, 465) # 587
-    smtpObj.starttls()
+    smtpObj = smtplib.SMTP_SSL(SMTPSERV, 465)
     smtpObj.login(USERNAME, password)
-    smtpObj.send_message(msg)           # або smtpObj.sendmail(from, [to], body)
+    smtpObj.send_message(msg)
     smtpObj.quit()
+
 #def
 
 
@@ -210,9 +210,8 @@ elif form.getvalue('tx_par2mail'):
 if SEND_EMAIL:
     try:
         send_email(reply_name, reply_mail, subject, data)
-    except Exception:
-        # заявка вже збережена у файл - лист не пройшов, але не валимо
-        # весь запит через це; варто додати логування помилки
-        pass
+    except Exception as e:
+        with open("_mail_errors.log", "a", encoding="utf-8") as fh:
+            fh.write(now() + ' ' + str(e) + '\n')
 
 redirect("/success/")
