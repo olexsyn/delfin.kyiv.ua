@@ -3,6 +3,8 @@ __pycache__
 .env
 env/*
 !env/requirements.txt
+html/request/_saved.txt
+html/request/_mail_errors.log
 
 # буде видалене
 document_errors/
