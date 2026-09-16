@@ -4,9 +4,13 @@ import sys
 import cgi
 import time
 import os
+import json
+import urllib.request
+import urllib.parse
 
+TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 ROOT_DIR   = "/home/www/delfin.kyiv.ua"
-SEND_EMAIL = 1
+SEND_EMAIL = 0
 
 SMTPSERV = 'mail.delfin.kyiv.ua'
 TOADDR   = 'info@delfin.kyiv.ua'
@@ -35,6 +39,35 @@ RELATION_NAMES = {
     'brat': 'брат',
     'sest': 'сестра',
 }
+
+# ---------------------------
+def verify_turnstile(token, remote_ip):
+    """
+    Перевіряє токен Cloudflare Turnstile через siteverify.
+    Повертає True/False.
+
+    """
+    secret = os.getenv('TURNSTILE_SECRET')
+    if not secret:
+        raise RuntimeError("TURNSTILE_SECRET not set")
+
+    if not token:
+        return False
+
+    payload = urllib.parse.urlencode({
+        'secret': secret,
+        'response': token,
+        'remoteip': remote_ip or '',
+    }).encode('ascii')
+
+    try:
+        req = urllib.request.Request(TURNSTILE_VERIFY_URL, data=payload)
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            result = json.loads(resp.read().decode('utf-8'))
+        return bool(result.get('success'))
+    except Exception:
+        return False
+#def
 
 
 # ---------------------------
@@ -152,8 +185,13 @@ load_env_file(os.path.join(ROOT_DIR, ".env"))
 data = '\nвід ' + now() + '\n' + '-' * 20 + '\n\n'
 form = cgi.FieldStorage()
 
-if form.getvalue('se_bot') != '7':
+
+turnstile_token = form.getvalue('cf-turnstile-response')
+remote_ip = os.environ.get('REMOTE_ADDR')
+
+if not verify_turnstile(turnstile_token, remote_ip):
     goto_error()
+
 
 child = form.getvalue("tx_child")
 if not child:

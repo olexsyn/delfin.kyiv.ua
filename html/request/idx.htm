@@ -182,28 +182,18 @@
 					<hr class="my-4" />
 
 					<div class="row g-3 align-items-center">
-						<div class="col-sm-1 text-end"><span class="text-danger">*</span></div>
-						<div class="col-sm-7">
-							<select class="form-select" name="se_bot">
-								<option value="0">Вкажіть, що Ви не бот</option>
-								<option value="1">Я не зайчик</option>
-								<option value="2">Я не песик</option>
-								<option value="3">Я не лисичка</option>
-								<option value="4">Я не рибка</option>
-								<option value="5">Я не котик</option>
-								<option value="6">Я не ведмедик</option>
-								<option value="7">Я не ботик</option>
-								<option value="8">Я не слоник</option>
-								<option value="9">Я не коник</option>
-							</select>
+						<div class="col-sm-6 text-end">
+							<div class="cf-turnstile" data-sitekey="0x4AAAAAAE4zbl3pdeV8Jrqv"></div>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-6">
 							<button type="submit" class="btn btn-success">Відправити заявку</button>
 						</div>
 					</div>
 
 				</fieldset>
 			</form>
+
+			<hr class="my-4" />
 
 		</div> <!-- /container -->
 
@@ -212,6 +202,7 @@
 		<!--#include virtual="/_parts/js_loader.htm"-->
 
 		<script src="https://cdn.jsdelivr.net/npm/imask@7/dist/imask.min.js"></script>
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 		<script>
 
@@ -258,6 +249,10 @@
 					alert("Будь ласка, перевірте та виправте деякі поля:\n" + reason);
 					return false;
 				}
+
+				const submitBtn = theForm.querySelector('button[type="submit"]');
+				submitBtn.disabled = true;
+				submitBtn.textContent = "Надсилання...";
 
 				return true;
 			}

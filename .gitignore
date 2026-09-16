@@ -11,6 +11,7 @@ document_errors/
 
 # директорії на сервері
 .logs/
+.res/
 # stats/
 # private/
 
