@@ -10,7 +10,7 @@ import urllib.parse
 
 TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 ROOT_DIR   = "/home/www/delfin.kyiv.ua"
-SEND_EMAIL = 0
+SEND_EMAIL = 1
 
 SMTPSERV = 'mail.delfin.kyiv.ua'
 TOADDR   = 'info@delfin.kyiv.ua'
